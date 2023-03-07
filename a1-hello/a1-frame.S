@@ -16,13 +16,13 @@
 #endif
 
 .text
-info: .asciz ",  Lab Assignment 1 - Hello World"
+info: .asciz "M'hamed belalia 2743067  assignment 1\n"
 
 .global my_main                        
 my_main:
 	movq $0, %rax
+	movq $25, %rsi
     	movq $info, %rdi
     	call printf
 end:
-	mov $0, %rdi 
     	call exit
