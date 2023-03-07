@@ -17,24 +17,50 @@
 #endif
 
 .text
-# your strings here
+info: .asciz "M'hamed Belalia, 2743067,  Lab Assignment 2: inout\n"
+inputtext: .asciz "Enter a number: "
+incrementedtext: .asciz "Incremented number is: "
+firstnum: .asciz "%ld"
+incrementednum: .asciz "%ld"
 
-.global my_main                         # make my_main accessible globally
-.global my_increment                    # make my_increment accessible globally
+.global my_main                         
+.global my_increment                    
 
 my_main:
-        # set up the stack frame
-
+        pushq %rbp
+        movq %rsp, %rbp
+        movq $0, %rax 
+        movq $info, %rdi 
+        call printf 
         call    inout                
 
-        # clear the stack and return
-
+        
+        movq    %rbp, %rsp
+        popq    %rbp
+        ret      
 inout:
-        # read input and increment it using my_increment
-
+        
+        subq $16, %rsp 
+        movq $inputtext, %rdi  
+        call printf
+        leaq -8(%rbp), %rsi
+        movq $firstnum, %rdi
+        movq $0, %rax
+        call scanf
+        movq -8(%rbp), %rdi
         call    my_increment
 
-        # output incremented number
-
+        
+        movq $incrementedtext, %rdi
+        call printf 
+        movq %rax, %rdi
+        movq $incrementednum, %rsi
+        call printf
+        movq %rbp, %rsp
+        popq %rbp
+        ret
 my_increment:
-        # IMPLEMENT ME
+        
+        addq $1, %rdi
+        movq %rdi, %rax
+        ret
