@@ -1,6 +1,6 @@
 # *********************************************************************************
 # * Program name: Hello World                                                     *
-# * Description :                                                                 *
+# * Description : Lab Assignment 1 - Hello World                                  *
 # *********************************************************************************
 
 #ifndef MACOS
@@ -16,9 +16,13 @@
 #endif
 
 .text
-# your strings here
+info: .asciz ",  Lab Assignment 1 - Hello World"
 
-.global my_main                         # make my_main accessible globally
-
+.global my_main                        
 my_main:
-	# IMPLEMENT ME    
+	movq $0, %rax
+    	movq $info, %rdi
+    	call printf
+end:
+	mov $0, %rdi 
+    	call exit
